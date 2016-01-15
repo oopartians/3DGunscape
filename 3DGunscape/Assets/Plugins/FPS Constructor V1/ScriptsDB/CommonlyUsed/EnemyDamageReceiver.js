@@ -41,6 +41,7 @@ function ApplyDamage(Arr : Object[]){
 
 		Invoke("DelayedDetonate", effectDelay);
 	}
+	BroadcastMessage ("GotHit", SendMessageOptions.DontRequireReceiver);
 }
 
 function ApplyDamagePlayer (damage : float){
@@ -66,6 +67,7 @@ function ApplyDamagePlayer (damage : float){
 
 		Invoke("DelayedDetonate", effectDelay);
 	}
+	BroadcastMessage ("GotHit", SendMessageOptions.DontRequireReceiver);
 }
 
 function ApplyDamage (damage : float){
@@ -86,6 +88,7 @@ function ApplyDamage (damage : float){
 
 		Invoke("DelayedDetonate", effectDelay);
 	}
+	BroadcastMessage ("GotHit", SendMessageOptions.DontRequireReceiver);
 }
 
 function DelayedDetonate(){

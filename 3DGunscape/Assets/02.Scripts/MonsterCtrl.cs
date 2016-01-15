@@ -20,6 +20,10 @@ public class MonsterCtrl : MonoBehaviour
     // Life
     private bool _isDie = false;
 
+    // Blood Effect
+    public GameObject _bloodEffect;
+    public GameObject _bloodDecal;
+
 
     // Use this for initialization
     void Start () {
@@ -94,4 +98,29 @@ public class MonsterCtrl : MonoBehaviour
 	void Update () {
 	
 	}
+    IEnumerator CreateBloodEffect(Vector3 position)
+    {
+        GameObject blood1 = (GameObject) Instantiate(_bloodEffect, position, Quaternion.identity);
+        Destroy(blood1, 2.0f);
+
+        yield return null;
+    }
+
+    // EnemyDamageReceiver calls this method
+    public void Die()
+    {
+
+    }
+
+    // EnemyDamageReceiver calls this method
+    public void GotHit()
+    {
+        // BloodEffect is appearing at little higher and closer position to player
+        Vector3 middle = _monsterTransform.position;
+        middle.y += _monsterTransform.lossyScale.y; // Higher
+        middle += (_playerTransform.position - _monsterTransform.position).normalized; // Closer
+
+        StartCoroutine(this.CreateBloodEffect(middle));
+        _animator.SetTrigger("IsHit");
+    }
 }
