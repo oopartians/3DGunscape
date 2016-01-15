@@ -124,7 +124,18 @@ public class MonsterCtrl : MonoBehaviour
     // EnemyDamageReceiver calls this method
     public void Die()
     {
+        StopAllCoroutines();
+        _isDie = true;
+        MonsterState = EMonsterState.Die;
+        _navMeshAgent.Stop();
+        _animator.SetTrigger("IsDie");
 
+        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
+
+        foreach (Collider collider in gameObject.GetComponentsInChildren<SphereCollider>())
+        {
+            collider.enabled = false;
+        }
     }
 
     // EnemyDamageReceiver calls this method
