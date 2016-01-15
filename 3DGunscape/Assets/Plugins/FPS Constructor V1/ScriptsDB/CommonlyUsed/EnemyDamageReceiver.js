@@ -118,6 +118,7 @@ function Detonate(){
 		emitter.transform.parent = null;
 	}
 	BroadcastMessage ("Die", SendMessageOptions.DontRequireReceiver);
-	Destroy(gameObject);
+    // TODO: Destory object if there is no "Die()" method in the object
+    //	Destroy(gameObject);
 
 }

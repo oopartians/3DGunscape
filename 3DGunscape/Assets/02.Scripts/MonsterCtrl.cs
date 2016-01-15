@@ -100,8 +100,23 @@ public class MonsterCtrl : MonoBehaviour
 	}
     IEnumerator CreateBloodEffect(Vector3 position)
     {
+        // Blood Effect
         GameObject blood1 = (GameObject) Instantiate(_bloodEffect, position, Quaternion.identity);
         Destroy(blood1, 2.0f);
+
+        // Blood Decal
+        Vector3 decalPosition = _monsterTransform.position + Vector3.up*0.01f;
+        // Random
+        Quaternion decalRotation = Quaternion.Euler(0, Random.Range(0,360), 0);
+
+        // Decal Prefab
+        GameObject blood2 = (GameObject) Instantiate(_bloodDecal, decalPosition, decalRotation);
+        // Random position
+        float scale = Random.Range(1.5f, 3.5f);
+        blood2.transform.localScale = new Vector3(scale, 1, scale);
+
+        // Last for 5 secs
+        Destroy(blood2, 5.0f);
 
         yield return null;
     }
@@ -109,7 +124,18 @@ public class MonsterCtrl : MonoBehaviour
     // EnemyDamageReceiver calls this method
     public void Die()
     {
+        StopAllCoroutines();
+        _isDie = true;
+        MonsterState = EMonsterState.Die;
+        _navMeshAgent.Stop();
+        _animator.SetTrigger("IsDie");
 
+        gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
+
+        foreach (Collider collider in gameObject.GetComponentsInChildren<SphereCollider>())
+        {
+            collider.enabled = false;
+        }
     }
 
     // EnemyDamageReceiver calls this method
