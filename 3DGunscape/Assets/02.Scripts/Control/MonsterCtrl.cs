@@ -136,6 +136,10 @@ public class MonsterCtrl : MonoBehaviour
         {
             collider.enabled = false;
         }
+
+        BroadcastMessage("Drop", _monsterTransform.position, SendMessageOptions.DontRequireReceiver);
+
+        Destroy(gameObject, 5.0f);
     }
 
     // EnemyDamageReceiver calls this method
