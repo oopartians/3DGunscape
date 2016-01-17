@@ -19,6 +19,7 @@ public class MonsterCtrl : MonoBehaviour
 
     // Life
     private bool _isDie = false;
+    public int Exp = 100;
 
     // Blood Effect
     public GameObject _bloodEffect;
@@ -138,6 +139,8 @@ public class MonsterCtrl : MonoBehaviour
         }
 
         BroadcastMessage("Drop", _monsterTransform.position, SendMessageOptions.DontRequireReceiver);
+        GameObject player = GameObject.FindWithTag("Player");
+        player.BroadcastMessage("GainExp", Exp, SendMessageOptions.DontRequireReceiver);
 
         Destroy(gameObject, 5.0f);
     }

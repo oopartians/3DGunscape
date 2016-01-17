@@ -8,7 +8,7 @@ public class ItemDrop : MonoBehaviour
     // Use this for initialization
 	void Start ()
 	{
-        Debug.Log("Item : " + Items.Length);
+
 	}
 	
 	// Update is called once per frame
@@ -29,7 +29,6 @@ public class ItemDrop : MonoBehaviour
         foreach (DropItemInfo itemInfo in Items)
         {
             float chance = itemInfo.Chance;
-            Debug.Log("dropRate : " + dropRate + " chance : " + chance);
             if (dropRate < chance)
             {
                 Instantiate(itemInfo.Item, position, Quaternion.identity);
